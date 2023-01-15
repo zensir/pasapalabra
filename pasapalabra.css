@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;700&display=swap");
+* {
+  box-sizing: border-box;
+}
+html {
+  font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+header {
+  margin: 1rem;
+}
+
+main {
+}
+
+div,
+section.ingame {
+  background-color: lightgrey;
+  border: 1px solid gray;
+  margin: 1rem;
+  padding: 1rem;
+}
+ul.letters-list {
+  line-height: 3.5rem;
+}
+.game-status p {
+}
+
+.letters-list li {
+  font-weight: 700;
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+  width: 100px;
+  height: 55px;
+  background: blue;
+  position: relative;
+  aspect-ratio: 1;
+  display: inline-block;
+  margin: 2rem;
+}
+.letters-list li:before {
+  content: "";
+  position: absolute;
+  top: -25px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 25px solid blue;
+}
+.letters-list li:after {
+  content: "";
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 25px solid blue;
+}
+.row {
+  margin-top: 1.3em;
+}
