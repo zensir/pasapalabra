@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISDI Pasapalabra by Anibal Estrella</title>
+    <link rel="stylesheet" href="./pasapalabra.css">
+    <script src="./pasapalabra.js" defer></script>
+
+    <!-- <script src="./pasapalabra.js"></script> -->
+</head>
+
+<body>
+    <header>
+        <h1 class="main-title" id="h1">pasapalabra</h1>
+    </header>
+    <main>
+        <ul class="letters-list circle-container">
+            <li>A</li>
+            <li>B</li>
+            <li>C</li>
+            <li>D</li>
+            <li>E</li>
+            <li>F</li>
+            <li>G</li>
+            <li>H</li>
+            <li>I</li>
+            <li>J</li>
+            <li>K</li>
+            <li>L</li>
+            <li>M</li>
+            <li>N</li>
+            <li>O</li>
+            <li>P</li>
+            <li>Q</li>
+            <li>R</li>
+            <li>S</li>
+            <li>T</li>
+            <li>U</li>
+            <li>V</li>
+            <li>W</li>
+            <li>X</li>
+            <li>Y</li>
+            <li>Z</li>
+        </ul>
+        <div class="Game-start">
+            <h2 class="welcome">Hi! welcome to Pasapalabra game by Anibal Estrella</h2>
+            <p class="text">Please enter your name to start the game.</p>
+            <form>
+                <input type="text" class="input-user-name">
+                <button class="start-game">lets play!</button>
+            </form>
+
+        </div>
+        <section class="ingame">
+            <div class="game">
+                <div class="game-status">
+                    <p class="time-left">Time left: 120 secs</p>
+                    <p class="letters-answered">Letters answered: 20 </p>
+                </div>
+
+                <H2 class="greetings">Hello NAME!</H2>
+                <p>let's Play Pasapalabra! You have TIMELIMIT seconds limit to answer all the questions of each letter
+                    ofthe alphabet. <br>You can press "pasapalabra" to skip to next letter or press "end game" to end
+                    the game anytime.
+                </p>
+                <h2 class="question">This is the question?</h2>
+                <form>
+                    <input type="text" class="input-answer">
+                    <button class="clear-input">Clear</button>
+                    <button class="pasapalabra">Pasapalabra!</button>
+                    <button class="send-answer">Send Answer</button>
+                    <button class="end-game">End Game</button>
+                </form>
+            </div>
+
+            <div class="endGame">
+                <h2 class="Game-ended">Game Ended!</h2>
+                <h2 class="Times-up">Time's UP!</h2>
+                <h3>Congrats NAME!</h3>
+                <p>You've answered 23 letters correctly.</p>
+                <button id="restart-game" class="restart-game" onclick="">Let's play again!</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Made by Anibal Estrella</p>
+    </footer>
+</body>
+
+</html>
