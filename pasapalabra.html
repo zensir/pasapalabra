@@ -2,92 +2,111 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ISDI Pasapalabra by Anibal Estrella</title>
-    <link rel="stylesheet" href="./pasapalabra.css">
+    <link rel="stylesheet" href="./pasapalabra.css" />
     <script src="./pasapalabra.js" defer></script>
 
     <!-- <script src="./pasapalabra.js"></script> -->
 </head>
 
 <body>
-    <header>
-        <h1 class="main-title" id="h1">pasapalabra</h1>
-    </header>
-    <main>
-        <ul class="letters-list circle-container">
-            <li>A</li>
-            <li>B</li>
-            <li>C</li>
-            <li>D</li>
-            <li>E</li>
-            <li>F</li>
-            <li>G</li>
-            <li>H</li>
-            <li>I</li>
-            <li>J</li>
-            <li>K</li>
-            <li>L</li>
-            <li>M</li>
-            <li>N</li>
-            <li>O</li>
-            <li>P</li>
-            <li>Q</li>
-            <li>R</li>
-            <li>S</li>
-            <li>T</li>
-            <li>U</li>
-            <li>V</li>
-            <li>W</li>
-            <li>X</li>
-            <li>Y</li>
-            <li>Z</li>
-        </ul>
-        <div class="Game-start">
-            <h2 class="welcome">Hi! welcome to Pasapalabra game by Anibal Estrella</h2>
+    <div id="container">
+        <header>
+            <h1 class="main-title" id="h1">
+                pasapalabra
+            </h1>
+        </header>
+        <div class="game-start">
+            <h2 class="welcome">Hi! welcome to Pasapalabra game.</h2>
             <p class="text">Please enter your name to start the game.</p>
             <form>
-                <input type="text" class="input-user-name">
+                <input type="text" class="input-user-name" />
                 <button class="start-game">lets play!</button>
             </form>
-
         </div>
-        <section class="ingame">
-            <div class="game">
-                <div class="game-status">
-                    <p class="time-left">Time left: 120 secs</p>
-                    <p class="letters-answered">Letters answered: 20 </p>
+        <div class="game-end">
+            <h2 class="game-end-headline">Game Ended!</h2>
+            <h2 class="Times-up">Time's UP!</h2>
+            <h3>Congrats NAME!</h3>
+            <p>You've answered 23 letters correctly.</p>
+            <button id="restart-game" class="restart-game" onclick="">
+                Let's play again!
+            </button>
+        </div>
+        <div id="content">
+            <div id="left-column">
+                <ul class="letters-list circle-container">
+                    <li class="letter letter-a status-0">A</li>
+                    <li class="letter letter-b status-0">B</li>
+                    <li class="letter letter-c status-0">C</li>
+                    <li class="letter letter-d status-0">D</li>
+                    <li class="letter letter-e status-0">E</li>
+                    <li class="letter letter-f status-0">F</li>
+                    <li class="letter letter-g status-0">G</li>
+                    <li class="letter letter-h status-0">H</li>
+                    <li class="letter letter-i status-0">I</li>
+                    <li class="letter letter-j status-0">J</li>
+                    <li class="letter letter-k status-0">K</li>
+                    <li class="letter letter-l status-0">L</li>
+                    <li class="letter letter-m status-0">M</li>
+                    <li class="letter letter-n status-0">N</li>
+                    <li class="letter letter-o status-0">O</li>
+                    <li class="letter letter-p status-0">P</li>
+                    <li class="letter letter-q status-0">Q</li>
+                    <li class="letter letter-r status-0">R</li>
+                    <li class="letter letter-s status-0">S</li>
+                    <li class="letter letter-t status-0">T</li>
+                    <li class="letter letter-u status-0">U</li>
+                    <li class="letter letter-v status-0">V</li>
+                    <li class="letter letter-w status-0">W</li>
+                    <li class="letter letter-x status-0">X</li>
+                    <li class="letter letter-y status-0">Y</li>
+                    <li class="letter letter-z status-0">Z</li>
+                </ul>
+            </div>
+            <div id="right-column">
+                <div class="round">
+                    <h2 class="roundHeadline">Round: 001</h2>
                 </div>
+                <section class="ingame">
+                    <div class="game">
+                        <div class="game-status">
+                            <p class="time-left">Time left: 120 secs</p>
+                            <p class="letters-answered">Letters answered: 20</p>
+                        </div>
 
-                <H2 class="greetings">Hello NAME!</H2>
-                <p>let's Play Pasapalabra! You have TIMELIMIT seconds limit to answer all the questions of each letter
-                    ofthe alphabet. <br>You can press "pasapalabra" to skip to next letter or press "end game" to end
-                    the game anytime.
-                </p>
-                <h2 class="question">This is the question?</h2>
-                <form>
-                    <input type="text" class="input-answer">
-                    <button class="clear-input">Clear</button>
-                    <button class="pasapalabra">Pasapalabra!</button>
-                    <button class="send-answer">Send Answer</button>
-                    <button class="end-game">End Game</button>
-                </form>
-            </div>
+                        <h2 class="greetings">Hello NAME!</h2>
+                        <p>
+                            let's Play Pasapalabra! You have TIMELIMIT seconds limit to answer all the questions of each
+                            letter
+                            ofthe alphabet. <br />You can press
+                            "pasapalabra" to skip to next letter or press "end game" to end the game anytime.
+                        </p>
+                        <h2 class="question">This is the question?</h2>
+                        <form>
+                            <input type="text" class="input-answer" />
+                            <button class="send-answer">Send Answer</button>
 
-            <div class="endGame">
-                <h2 class="Game-ended">Game Ended!</h2>
-                <h2 class="Times-up">Time's UP!</h2>
-                <h3>Congrats NAME!</h3>
-                <p>You've answered 23 letters correctly.</p>
-                <button id="restart-game" class="restart-game" onclick="">Let's play again!</button>
+                            <button class="pasapalabra">Pasapalabra!</button>
+                            <button class="clear-input">Clear</button>
+                            <button class="end-game">End Game</button>
+                        </form>
+                    </div>
+
+
+                </section>
             </div>
-        </section>
-    </main>
-    <footer>
-        <p>Made by Anibal Estrella</p>
-    </footer>
+        </div>
+
+        <footer>
+            <p>Made by Anibal Estrella</p>
+        </footer>
+    </div>
+
+
 </body>
 
 </html>

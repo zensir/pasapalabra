@@ -1,9 +1,45 @@
+:root {
+  --blue: #00a6ff;
+  --green: #2cf6b3;
+  --blush: #de6c83;
+  --gray: #3f4a3c;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;700&display=swap");
 * {
   box-sizing: border-box;
 }
 html {
   font-family: "Roboto", sans-serif;
+}
+
+/*LAYOUT*/
+#container {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  border: 1px solid var(gray);
+  flex: 0 0 auto;
+  padding: 1em;
+}
+
+#content {
+  display: flex;
+  flex-direction: row;
+}
+
+#left-column,
+#right-column {
+  background-color: lightgray;
+  flex: 1 1 auto;
+  width: calc(100% / 2);
+}
+
+footer {
+  background-color: lightgray;
+  flex: 0 0 auto;
 }
 
 h1,
@@ -19,17 +55,32 @@ main {
 
 div,
 section.ingame {
-  background-color: lightgrey;
-  border: 1px solid gray;
+  border: 1px solid var(--gray);
   margin: 1rem;
   padding: 1rem;
-}
-ul.letters-list {
-  line-height: 3.5rem;
 }
 .game-status p {
 }
 
+.letters-list {
+  line-height: 3.5rem;
+}
+/* NOT ANSWERED = 2 = stays the same */
+.letters-list li.status-0 {
+  background: var(--blue);
+}
+/*RIGHT ANSWER = 1*/
+.letters-list li.status-1 {
+  background: var(--green);
+}
+/* wrong answer = 3 */
+.letters-list li.status-2 {
+  background: var(--blush);
+}
+/* pasapalabra = 3 = stays the same */
+.letters-list li.status-3 {
+  background: var(--blue);
+}
 .letters-list li {
   font-weight: 700;
   font-size: 2rem;
@@ -37,7 +88,7 @@ ul.letters-list {
   text-align: center;
   width: 100px;
   height: 55px;
-  background: blue;
+  background: var(--blue);
   position: relative;
   aspect-ratio: 1;
   display: inline-block;
@@ -47,24 +98,28 @@ ul.letters-list {
   content: "";
   position: absolute;
   top: -25px;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-bottom: 25px solid blue;
+  border-bottom: 25px solid var(--blue);
 }
 .letters-list li:after {
   content: "";
   position: absolute;
   bottom: -25px;
+  border-top: 25px solid var(--blue);
+}
+
+.letters-list li:after,
+.letters-list li:before {
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
   left: 0;
   width: 0;
   height: 0;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-top: 25px solid blue;
 }
-.row {
-  margin-top: 1.3em;
+
+.round {
+  display: none;
+}
+
+.game-end {
+  display: none;
 }
