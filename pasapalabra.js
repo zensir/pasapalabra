@@ -278,26 +278,32 @@ const questions = [
     answer3: "zoology",
   },
 ];
+alert('prueba de errores check answer checkInputError()')
+//https://stackoverflow.com/questions/62496266/detect-the-error-message-in-the-input-field
+debugger;
 let userName, randomQuestionNumber;
-const timeLimit = 1170.43;
+const timeLimit = 117.43;
 let rounds = 0;
+let letterCounter = 20;
+let userAnswer;
+let answer;
+let status;
 let answeredLettersList = [];
 let pasapalabraList = [];
 let questionNumber = 0;
 let pasapalabraQuestions;
 let pasapalabraQuestionNumber;
+let points = 0;
+let ranking = [
+  { name: "Anibal", points: 20 },
+  { name: "Enki", points: 26 },
+  { name: "Banano", points: 13 },
+];
 
-const askForNameAndGreet = (timeLimit) => {
-  const userName = prompt("Hello! Welcome to ISDI PASAPALABRA. Please, enter your name!", "Anibal");
-  if (userName === null || userName === "" || userName == " ") {
-    askForNameAndGreet(timeLimit);
+const askForNameAndGreet = (userName, timeLimit) => {
+  if (userName === null || userName === "" || userName === " ") {
+    return alert("Please enter Your name.");
   } else {
-    console.log(
-      `Hi ${userName}, let's Play Pasapalabra!\nType \"end\" to quit and \"pasapalabra\" to skip to next letter\n You have ${timeLimit} seconds limit to complete the game.`
-    );
-    alert(
-      `Hi ${userName}, let's Play Pasapalabra!\nType \"end\" to quit and \"pasapalabra\" to skip to next letter\n You have ${timeLimit} seconds limit to complete the game.`
-    );
     return userName;
   }
 };
@@ -306,92 +312,89 @@ const randomNumber = () => {
   return Math.round(Math.random() * (3 - 1)) + 1;
 };
 
-const askLetter = (questions, userName, start) => {
-  rounds++;
-  alert(`Round: ${rounds}`);
-  console.log(`// Round: ${rounds} ////////////////////////////`);
-
-  let userAnswer, status, question, answer, letter, answerNumber;
+const askLetter = (questions) => {
+  let question, letter, answerNumber;
 
   randomQuestionNumber = randomNumber();
   questionNumber = "question" + randomQuestionNumber;
   answerNumber = "answer" + randomQuestionNumber;
-  for (let i = 0; i < questions.length; i++) {
-    if (rounds > 1 && checkPasapalabraStatus(questions)) {
-      questionNumber = "question" + pasapalabraQuestionNumber;
-      answerNumber = "answer" + pasapalabraQuestionNumber;
-    }
-    question = questions[i][questionNumber];
-    answer = questions[i][answerNumber];
-    questionsObject = i;
-    status = questions[i].status;
-    letter = questions[i].letter;
 
-    userAnswer = prompt(`${question}`, `${answer}`);
-    while (userAnswer === null || userAnswer === "" || userAnswer == " ") {
-      userAnswer = prompt(`${question}`, `${answer}`);
-    };
-
-    let response = checkAnswer(questionsObject, question, userAnswer, answer, start, letter, status, randomQuestionNumber);
-
-
-
-    if (response === "END") {
-      return "END";
-    } else if (response === "TIME") {
-      console.log(`// TIME'S UP! ////////////////////////////`);
-      alert(`TIME'S UP!`);
-      return "TIME";
-    }
+  if (rounds > 1 && checkPasapalabraStatus(questions)) {
+    questionNumber = "question" + pasapalabraQuestionNumber;
+    answerNumber = "answer" + pasapalabraQuestionNumber;
   }
+  question = questions[letterCounter][questionNumber];
+  answer = questions[letterCounter][answerNumber];
+  status = questions[letterCounter].status;
+  letter = questions[letterCounter].letter;
+
+  displayQuestion(question);
+  inputAnswer.value = `${answer}`;
 };
 
-const checkAnswer = (questionsObject, question, userAnswer, answer, start, letter, status, randomQuestionNumber) => {
+
+const checkErrorInput = (userAnswer) =>{
+  if (userAnswer === null || userAnswer === "" || userAnswer === " ") {
+    return true
+  }
+  return false;
+  // if (response === "END") {
+  //   return "END";
+  // } else if (response === "TIME") {
+  //   console.log(`// TIME'S UP! ////////////////////////////`);
+  //   alert(`TIME'S UP!`);
+  //   return "TIME";
+  // }
+};
+
+
+const checkAnswer = (userAnswer, letterCounter, start, letter, randomQuestionNumber) => {
   let millis = Date.now() - start;
   if (Math.floor(millis / 1000) >= timeLimit) {
     return "TIME";
   } else {
     console.log(`// Time left: ${timeLimit - Math.floor(millis / 1000)} seconds`);
-  }
+  };
 
-  if (userAnswer.toUpperCase() === "END") {
-    return "END";
-  } else if (userAnswer.toUpperCase() === answer.toUpperCase()) {
+    if (userAnswer.toUpperCase() === answer.toUpperCase()) {
     console.log(`RIGHT ANSWER!! the word is: ${answer.toUpperCase()}`);
     alert(`RIGHT ANSWER!! the word is: ${answer.toUpperCase()}`);
-    //aquí no seleccina la respuesta correcta en el siguiente turno questionObject no coreresponde al array filtrado
-    if (rounds>1) {
-      pasapalabraQuestions[questionsObject].status = 1;
+    debugger;
+    changeLetterClass(letter, "status-0", "status-1");
+    if (rounds > 1) {
+      pasapalabraQuestions[letterCounter].status = 1;
     } else {
-      questions[questionsObject].status = 1;
+      questions[letterCounter].status = 1;
     };
-    console.table(showAnsweredLetters());
   } else if (userAnswer.toUpperCase() === "pasapalabra".toUpperCase()) {
     console.log(`// PASAPALABRA!`);
     alert(`PASAPALABRA!`);
     if (rounds > 1) {
-      pasapalabraQuestions[questionsObject].status = 3;
+      pasapalabraQuestions[letterCounter].status = 3;
     } else {
-      questions[questionsObject].status = 3;
-    }
+      questions[letterCounter].status = 3;
+      changeLetterClass(letter, "status-0", "status-3");
+    };
     if (rounds < 2) {
       pasapalabraQuestionNumber = randomQuestionNumber;
-    }
+    };
 
-    // pasapalabraList.push({ letter, status: 3, question, answer });
-    console.table(showAnsweredLetters());
   } else {
     console.log(`//WRONG ANSWER!! word isn't: ${userAnswer}`);
     alert(`WRONG ANSWER!! word isn't: ${userAnswer}`);
     if (rounds > 1) {
-      pasapalabraQuestions[questionsObject].status = 2;
+      pasapalabraQuestions[letterCounter].status = 2;
+      debugger; //cambiar el estilo de la letra del rosco
     } else {
-      questions[questionsObject].status = 2;
+      questions[letterCounter].status = 2;
+      changeLetterClass(letter, "status-0", "status-2");
     }
-    answeredLettersList.push({ letter: questions[questionsObject].letter, question: questions[questionsObject].question, answer: userAnswer });
+    answeredLettersList.push({ letter: questions[letterCounter].letter, question: questions[letterCounter].question, answer: userAnswer });
 
     console.table(showAnsweredLetters());
   }
+  debugger;
+
 };
 
 const showAnsweredLetters = () => {
@@ -408,12 +411,14 @@ const showAnsweredLetters = () => {
   return list;
 };
 
-const endGame = (userName) => {
-  console.log(`Bye ${userName}!\nThanks for playing ISDI Pasapalabra.\nThis is your game result so far:`);
-  let result = showAnsweredLetters(questions);
-  if (result.length > 0) {
-    console.log(`Total RIGHT Letters answered: ${result.length / 2}`);
+const endGame = () => {
+  console.log(`Bye ${userName}!\nThanks for playing ISDI Pasapalabra.\nThis is your game result:`);
+  if (showAnsweredLetters(questions).length > 0) {
+    points = questions.filter((letter) => letter.status === 1).length;
+    console.log(`Total RIGHT Letters answered: ${points}`);
     console.table(showAnsweredLetters(questions));
+    saveGame(userName, points);
+    showRanking(rankUsers(ranking));
   } else {
     console.log("Nothing answered!");
   }
@@ -433,6 +438,22 @@ const endGame = (userName) => {
 
 const checkPasapalabraStatus = (questions) => {
   return questions.filter((letter) => letter.status === 3).length > 0;
+};
+
+const saveGame = (name, points) => {
+  ranking.push({ name, points });
+};
+
+const rankUsers = () => {
+  ranking.sort((a, b) => b.points - a.points);
+  return ranking;
+};
+
+const showRanking = () => {
+  console.log("//This is the Ranking:");
+  for (let i = 0; i < ranking.length; i++) {
+    console.log(`${i + 1}. ${ranking[i].name} - ${ranking[i].points} points`);
+  }
 };
 
 const game = () => {
@@ -457,4 +478,100 @@ const game = () => {
   endGame(userName);
 };
 
-game();
+const inputAnswer = document.querySelector(".input-answer"); // load input text to refer to
+
+const addEventListeners = () => {
+  const inputUserName = document.querySelector(".input-user-name");
+  const startGameButton = document.querySelector(".start-game");
+  const sendAnswerButton = document.querySelector(".send-answer"); // load button to refer to
+  const clearButton = document.querySelector(".clear-input"); // load button to refer to
+  const endGameButton = document.querySelector(".end-game");
+  const pasapalabraButton = document.querySelector(".pasapalabra");
+
+
+  //listen to a click on an specific element with an specific class name
+
+  clearButton.addEventListener("click", (event) => {
+    event.preventDefault(); // when event executes, prevent browser to exwcute default form actions and let JS handle it
+    inputAnswer.value = ""; // fill the input text with an empty value
+  });
+
+  startGameButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    start = Date.now();
+    userName = inputUserName.value;
+    let errorInput = checkErrorInput(userAnswer);
+    if (!errorInput) {
+          inputUserName.value = "Please type your Name!";
+      return;
+    }
+    askForNameAndGreet(userName, timeLimit);
+    displayContent("greetings",`Hello ${userName}!`);
+    askLetter(questions, userName, start);
+    showDiv("game-start", false);
+    showDiv("round", true);
+    rounds++;
+    console.log(`// Round: ${rounds} ////////////////////////////`);
+  });
+
+  sendAnswerButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    userAnswer = inputAnswer.value; //saave input value to word variable
+    console.log(userAnswer);
+      checkAnswer(userAnswer, letterCounter, start, questions[letterCounter].letter, randomQuestionNumber);
+    letterCounter++;
+    askLetter(questions, userName, start);
+  });
+
+pasapalabraButton.addEventListener("click",(event) => {
+  event.preventDefault();
+  inputAnswer.value = "pasapalabra";
+  userAnswer="pasapalabra";
+      checkAnswer(userAnswer, letterCounter, start, questions[letterCounter].letter, randomQuestionNumber);
+  letterCounter++;
+      askLetter(questions, userName, start);
+})
+
+  endGameButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    endGame(userName);
+  });
+
+  inputUserName.value = `Anibal`;
+};
+
+addEventListeners();
+
+const showDiv = (elementClass, show) => {
+  const element = document.querySelector(`.${elementClass}`);
+  if (show) {
+    element.style.display = "block";
+  } else {
+    element.style.display = "none";
+  }
+};
+
+const displayContent = ( selector,text) => {
+  // const displayNameGreetings = document.querySelector(`.${selector}`);
+  document.querySelector(`.${selector}`).innerText = text;
+};
+
+const displayQuestion = (question) => {
+  const displayQuestionHeadline = document.querySelector(".question");
+  document.querySelector(".question").innerText = `${question}`;
+  console.log(`${question}`);
+};
+
+const changeElementStyle = (elementSelector, property, propertyValue) => {
+  const element = document.querySelector(`.${elementSelector}`);
+  element.style[property] = propertyValue;
+};
+
+const changeClassToElement = (oldClassName, newclassName) => {
+  document.querySelector(`.${oldClassName}`).classList.replace(oldClassName, newclassName);
+};
+const changeLetterClass = (letter, oldClassName, newclassName) => {
+  document.querySelector("li.letter-" + letter).classList.replace(oldClassName, newclassName);
+};
+
+// game();
