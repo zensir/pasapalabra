@@ -12,21 +12,41 @@
     <!-- <script src="./pasapalabra.js"></script> -->
 </head>
 
-<body>
+<body class="stripes"> 
     <div id="container">
         <header>
             <h1 class="main-title" id="h1">
                 pasapalabra
             </h1>
         </header>
-        <div class="game-start">
+        <div class="game-greetings">
             <h2 class="welcome">Hi! welcome to Pasapalabra game.</h2>
             <p class="text">Please enter your name to start the game.</p>
             <form>
                 <input type="text" class="input-user-name" />
-                <button class="start-game">lets play!</button>
+                <button class="button-start-game">let's play!</button>
             </form>
         </div>
+        <div class="game-status">
+            <h2 class="greetings-headline">Hello NAME!</h2>
+            <p>
+                let's Play Pasapalabra! You have TIMELIMIT seconds limit to answer all the questions of each
+                letter of the alphabet. <br />You can press "pasapalabra" to skip to next letter or press "end game" to end the game anytime.
+            </p>
+            <div class="round">
+                <ul>
+                    
+                    <li class="round-headline">Round:</li>
+                    <li class="round-value">001</li>
+                    <li class="letters-answered">Letters answered:</li>
+                    <li class="letters-answered-value">value</li>
+                    <li class="time-left">Time left:</li>
+                    <li class="time-left-value">XX</li>
+
+                </ul>
+            </div>
+        </div>
+       
         <div class="game-end">
             <h2 class="game-end-headline">Game Ended!</h2>
             <h2 class="Times-up">Time's UP!</h2>
@@ -36,59 +56,19 @@
                 Let's play again!
             </button>
         </div>
-        <div id="content">
-            <div id="left-column">
+        <div class="content">
+            <div class="left-column">
                 <ul class="letters-list circle-container">
-                    <li class="letter letter-a status-0">A</li>
-                    <li class="letter letter-b status-0">B</li>
-                    <li class="letter letter-c status-0">C</li>
-                    <li class="letter letter-d status-0">D</li>
-                    <li class="letter letter-e status-0">E</li>
-                    <li class="letter letter-f status-0">F</li>
-                    <li class="letter letter-g status-0">G</li>
-                    <li class="letter letter-h status-0">H</li>
-                    <li class="letter letter-i status-0">I</li>
-                    <li class="letter letter-j status-0">J</li>
-                    <li class="letter letter-k status-0">K</li>
-                    <li class="letter letter-l status-0">L</li>
-                    <li class="letter letter-m status-0">M</li>
-                    <li class="letter letter-n status-0">N</li>
-                    <li class="letter letter-o status-0">O</li>
-                    <li class="letter letter-p status-0">P</li>
-                    <li class="letter letter-q status-0">Q</li>
-                    <li class="letter letter-r status-0">R</li>
-                    <li class="letter letter-s status-0">S</li>
-                    <li class="letter letter-t status-0">T</li>
-                    <li class="letter letter-u status-0">U</li>
-                    <li class="letter letter-v status-0">V</li>
-                    <li class="letter letter-w status-0">W</li>
-                    <li class="letter letter-x status-0">X</li>
-                    <li class="letter letter-y status-0">Y</li>
-                    <li class="letter letter-z status-0">Z</li>
-                </ul>
+                   </ul>
             </div>
-            <div id="right-column">
-                <div class="round">
-                    <h2 class="roundHeadline">Round: 001</h2>
-                </div>
+            <div class="right-column">
                 <section class="ingame">
                     <div class="game">
-                        <div class="game-status">
-                            <p class="time-left">Time left: 120 secs</p>
-                            <p class="letters-answered">Letters answered: 20</p>
-                        </div>
-
-                        <h2 class="greetings">Hello NAME!</h2>
-                        <p>
-                            let's Play Pasapalabra! You have TIMELIMIT seconds limit to answer all the questions of each
-                            letter
-                            ofthe alphabet. <br />You can press
-                            "pasapalabra" to skip to next letter or press "end game" to end the game anytime.
-                        </p>
-                        <h2 class="question">This is the question?</h2>
+                        <p class="question-headline">question: </p>
+                         <h2 class="question">This is the question?</h2>
                         <form>
                             <input type="text" class="input-answer" />
-                            <button class="send-answer">Send Answer</button>
+                            <button class="send-answer">Answer</button>
 
                             <button class="pasapalabra">Pasapalabra!</button>
                             <button class="clear-input">Clear</button>
