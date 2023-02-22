@@ -327,12 +327,16 @@ const questions = [
     answer3: "zoology",
   },
 ];
-debugger;
+alert(`Grabar variables al acabar el tiempo, ranking etc.
+display game results
+PLAY AGAIN
+sistema de turnos`)
+// debugger;
 //https://stackoverflow.com/questions/62496266/detect-the-error-message-in-the-input-field
 let userName, randomQuestionNumber, start;
-const timeLimit = 10.0;
+const timeLimit = 120;
 let rounds = 0;
-let letterCounter = 20;
+let letterCounter = 24;
 let userAnswer;
 let answer;
 let status;
@@ -348,13 +352,6 @@ let ranking = [
   { name: "Banano", points: 13 },
 ];
 
-// const askForNameAndGreet = (userName, timeLimit) => {
-//   if (userName === null || userName === "" || userName === " ") {
-//     return alert("Please enter Your name.");
-//   } else {
-//     return userName;
-//   }
-// };
 
 const randomNumber = () => {
   return Math.round(Math.random() * (3 - 1)) + 1;
@@ -385,13 +382,6 @@ const checkErrorInput = (userAnswer) => {
     return true;
   }
   return false;
-  // if (response === "END") {
-  //   return "END";
-  // } else if (response === "TIME") {
-  //   console.log(`// TIME'S UP! ////////////////////////////`);
-  //   alert(`TIME'S UP!`);
-  //   return "TIME";
-  // }
 };
 
 const timeCheck = () => {
@@ -412,14 +402,11 @@ const checkAnswer = (
   letter,
   randomQuestionNumber
 ) => {
-  if (timeCheck()) {
-    endGame();
-    return true;
-  }
 
+  nextRound();
+ 
   if (userAnswer.toUpperCase() === answer.toUpperCase()) {
     console.log(`RIGHT ANSWER!! the word is: ${answer.toUpperCase()}`);
-    alert(`RIGHT ANSWER!! the word is: ${answer.toUpperCase()}`);
     changeLetterClass(letter.toUpperCase(), "status-0", "status-1");
     if (rounds > 1) {
       pasapalabraQuestions[letterCounter].status = 1;
@@ -428,7 +415,6 @@ const checkAnswer = (
     }
   } else if (userAnswer.toUpperCase() === "pasapalabra".toUpperCase()) {
     console.log(`// PASAPALABRA!`);
-    alert(`PASAPALABRA!`);
     if (rounds > 1) {
       pasapalabraQuestions[letterCounter].status = 3;
     } else {
@@ -439,7 +425,6 @@ const checkAnswer = (
     }
   } else {
     console.log(`//WRONG ANSWER!! word isn't: ${userAnswer}`);
-    alert(`WRONG ANSWER!! word isn't: ${userAnswer}`);
     if (rounds > 1) {
       pasapalabraQuestions[letterCounter].status = 2;
       changeLetterClass(letter, "status-0", "status-2");
@@ -454,6 +439,16 @@ const checkAnswer = (
     });
   }
 };
+
+const nextRound = ()=>{
+  if (letterCounter === 26) {
+    rounds++
+    displayContent('.round-value',rounds)
+    
+  } else {
+    return false
+  }
+}
 
 const showAnsweredLetters = () => {
   let list = [];
@@ -484,7 +479,7 @@ const showAnsweredLetters = () => {
 const endGame = () => {
   showDiv("content", false);
   showDiv("game-status", false);
-  showDiv("game-end", true);
+  document.querySelector(".game-end").style.display = "flex";
 
   if (showAnsweredLetters(questions).length > 0) {
     points = questions.filter((letter) => letter.status === 1).length;
@@ -517,37 +512,6 @@ const showRanking = () => {
   }
 };
 
-const game = () => {
-  console.log(
-    `// PASAPALABRA ///////////////////////////////////////////////////////////////`
-  );
-
-  let action;
-
-  userName = askForNameAndGreet(timeLimit);
-  action = askLetter(questions, userName, start);
-  if (action === "END" || action === "TIME") {
-    endGame(userName);
-    return console.log(
-      `// PASAPALABRA ///////////////////////////////////////////////////////////// SEE YOU NEXT TIME! //`
-    );
-  }
-
-  while (
-    checkPasapalabraStatus(questions) &&
-    action !== "END" &&
-    action !== "TIME"
-  ) {
-    pasapalabraQuestions = questions.filter((letter) => letter.status === 3);
-    action = askLetter(pasapalabraQuestions, userName, start);
-  }
-  alert(`Congrats ${userName}!\nYou've answered all Letters of PASAPALABRA!`);
-  console.log(
-    `// Congrats ${userName}!\nYou've answered all Letters of PASAPALABRA!\nNumber of ROUNDS to finish: ${rounds}`
-  );
-  endGame(userName);
-};
-
 const inputAnswer = document.querySelector(".input-answer"); // load input text to refer to
 
 const addEventListeners = () => {
@@ -568,7 +532,6 @@ const addEventListeners = () => {
   startGameButton.addEventListener("click", (event) => {
     event.preventDefault();
     start = Date.now();
-    debugger;
     userName = inputUserName.value;
     let errorInput = checkErrorInput(userName);
 
@@ -576,15 +539,20 @@ const addEventListeners = () => {
       inputUserName.value = "Please type your Name!";
       return;
     }
+    rounds++;
     displayContent("greetings-headline", `Hello ${userName}!`);
+    displayContent("round-value", rounds);
+
     askLetter(questions, userName, start);
     showDiv("game-greetings", false);
     showDiv("game-status", true);
 
-    rounds++;
     document.querySelector(".input-user-name").focus();
-    console.log(`// Round: ${rounds} ////////////////////////////`);
     document.querySelector(".input-answer").focus();
+    document.querySelector(".content").style.display = "flex";
+
+    timer()
+    circleAlphabet()
   });
 
   sendAnswerButton.addEventListener("click", (event) => {
@@ -664,25 +632,74 @@ const changeLetterClass = (letter, oldClassName, newclassName) => {
     .classList.replace(oldClassName, newclassName);
 };
 
-const circleAlphabet = () => {
+const circleAlphabet = () =>{
   const ulLetters = document.querySelector(".letters-list");
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-  const n = letters.length;
-  const r = 300;
-  for (let i = 0; i < n; i++) {
-    const theta = (2 * Math.PI * i) / n;
-    const y = -r * Math.cos(theta);
-    const x = r * Math.sin(theta);
+  let diameter = ulLetters.offsetWidth -64;
+  let radius = diameter / 2;
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  console.log(`${ulLetters}`, ulLetters)
+
+  for (let i = 0; i < letters.length; i++) {
+    const letter = letters.charAt(i);
+    const angle = i / letters.length * Math.PI * 2;
+    const x = Math.round(radius + radius * Math.sin(angle));
+    const y = -Math.round(radius * -1 + radius * Math.cos(angle));
     const li = document.createElement("li");
-    li.classList.add(`letter`, `letter-${letters[i]}`, "status-0");
+    li.classList.add(`letter`,   `letter-${letters[i]}`, "status-0");
     li.innerHTML = letters[i];
-    li.style.left = `${x + 300}px`;
-    li.style.top = `${y + 300}px`;
+    li.style.left = x + "px";
+    li.style.top = y + "px";
     ulLetters.appendChild(li);
   }
+  
+  window.addEventListener('resize', (event)=> {
+    event.preventDefault();
+    diameter = ulLetters.offsetWidth -64;
+    radius = diameter / 2;
+    for (let i = 0; i < ulLetters.children.length; i++) {
+      const li = ulLetters.children[i];
+      const angle = i / letters.length * Math.PI * 2;
+      const x = Math.round(radius + radius * Math.sin(angle));
+      const y = -Math.round(radius* -1 + radius * Math.cos(angle));
+        li.style.left = x + "px";
+      li.style.top = y + "px";
+    }
+  });
+  
 };
 
-circleAlphabet();
+
+
+const timer=()=>{
+
+  // Set the date we're counting down to
+  const countDownDate = new Date().getTime() + (timeLimit * 1000);
+  
+  // Update the count down every 1 second
+  
+  const displayCountdown = () => {
+    // Get today's date and time
+    const now = new Date().getTime();
+    // Find the distance between now and the count down date
+    const distance = countDownDate - now;
+    // Time calculations for minutes and seconds
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display the result in the element with id="timer"
+      document.querySelector(".time-left-value").innerText = `${minutes}m ${seconds}s`;
+
+
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(x);
+        document.querySelector(".time-left-value").innerText = "TIME OUT!";
+        endGame()
+      }
+    };
+    const x = setInterval(displayCountdown, 1000);
+  }
+
+
 document.querySelector(".input-user-name").focus();
 
-// game();
