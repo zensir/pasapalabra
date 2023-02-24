@@ -544,11 +544,11 @@ const addEventListeners = () => {
     displayContent("round-value", rounds);
 
     askLetter(questions, userName, start);
-    showDiv("game-greetings", false);
-    showDiv("game-status", true);
+    showDiv("game-intro", false);
 
     document.querySelector(".input-user-name").focus();
     document.querySelector(".input-answer").focus();
+    document.querySelector(".game-status").style.display = "flex";
     document.querySelector(".content").style.display = "flex";
 
     timer()
