@@ -53,23 +53,46 @@ h2 {
   font-size: 2rem;
   margin: 0;
 }
-
 .game-status {
   display: none;
+  flex-direction: row;
+  gap: 2rem;
   margin-bottom: 2rem;
   color: white !important;
-  background-color: var(--blue) !important;
+}
+
+.game-greetings{
+    background-color: var(--blue) !important;
+
   }
   
-.game-status p, .game-status ul {
+.game-greetings p, .round {
   font-weight: 300;
   font-size: 1.5rem;
 }
-.game-status ul {
+.round{
+  padding: 0;
+  margin: 0;
+  border: none;
   text-transform: uppercase;
   font-weight: 700;
-}
+  list-style: none;
 
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(auto, 1fr);
+  gap: .1rem 2rem;
+}
+  .letters-answered { grid-area: 1 / 2 / 2 / 3; }
+  .round-value { grid-area: 2 / 1 / 3 / 2; }
+  .round-headline { grid-area: 1 / 1 / 2 / 2; }
+  .letters-answered-value { grid-area: 2 / 2 / 3 / 3; }
+  .time-left { grid-area: 3 / 1 / 4 / 3; }
+  .time-left-value { grid-area: 4 / 1 / 5 / 3;}
+  
+  .round-value,  .time-left-value , .letters-answered-value{
+    font-size: 3rem; font-weight: 300;
+  }
 input[type="text"] {
   /* background-color: var(--gray); */
   text-transform: uppercase;
@@ -90,29 +113,34 @@ input[type="text"]:hover {
 }
 
 button {
-  background-color: var(--blue);
+  width: fit-content;
+  margin: 1rem;
+  padding: 1.1rem 3rem;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  color: #eee;
+  background-color: whitesmoke;
   border-radius: 2.5em;
   border: 0;
   box-sizing: border-box;
-  color: #eee;
   cursor: pointer;
-  font-size: 1.5em;
-  padding: 1.1rem;
   outline: 0;
-  text-align: center;
-  width: fit-content;
-  margin: 1rem;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 button:hover {
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
   text-shadow: none;
   background-color: var(--blue);
-  transition: background-color 0.3s, box-shadow 0.3s, text-shadow 0.3s;
+  transition: box-shadow 0.3s, text-shadow 0.3s;
 }
 button:active {
-  background-color: var(--green);
   box-shadow: none;
+  background-color: var(--green);
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  transition:  box-shadow 0.3s;
 }
 .button-start-game {
   align-self: flex-end;
@@ -126,25 +154,12 @@ border-color: var(--blue);
   display: flex;
   flex-direction: column;
 }
-.game-greetings,
-.game-greetings form {
+.game-intro,
+.game-intro form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-.round{
-  padding: 0;
-  margin: 0;
-  border: none;
-}
-
-.round ul{
-  display: flex;
-  gap: 1rem;
-  list-style: none;
-margin: 0;
-padding: 0;
 }
 
 
@@ -170,8 +185,7 @@ padding-bottom: 100%;
 
 }
 
-.letters-list,
-button {
+.letters-list {
   font-family: "Fredoka", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
@@ -219,12 +233,11 @@ button {
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
 }
-
+.game-intro,
 .game-greetings,
-.game-status,
 .right-column,
 .game-end{
-  background-color: whitesmoke;
+  background-color: var(--blue);
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
@@ -236,11 +249,11 @@ button {
 .right-column .question-headline{
   font-size: 0.8rem;
 text-transform: uppercase;
-color: var(--lgray);
+color: white;
 }
 .question{
   font:  600 2rem "Roboto", sans-serif;
-  color: var(--lgray);
+  color: white;
 }
 .game-end {
   margin: 0;
