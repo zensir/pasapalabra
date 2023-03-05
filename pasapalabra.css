@@ -2,12 +2,14 @@
 
 
 :root {
-  --blue: #00a6ff;
-  --green: #2cf6b3;
-  --blush: #de6c83;
-  --gray: #3f4a3c;
-  --lgray: hsl(193, 4%, 55%);
-  --slgray: hsl(180, 3%, 86%);
+  --blue: rgb(0, 166, 255);
+  --green: rgb(44, 246, 179);
+  --blush: rgb(222, 108, 131);
+  --gray: rgb(63, 74, 60);
+  --lgray: rgb(160, 160, 160);
+  --slgray: rgb(218, 218, 218);
+  --swhite: rgb(243, 245, 247);
+
 
 }
 
@@ -40,22 +42,26 @@ header{
   z-index: -1;
 }
 
-
-header h1{
-  font:  600 calc(14vw - .5rem) "Roboto", sans-serif;
-  color: var(--lgray);
-  text-align: justify;
-}
-
 h1,
-h2 {
+h2, h3 {
   text-transform: uppercase;
   font-size: 2rem;
   margin: 0;
+  color: white;
 }
+
+header h1{
+  font:  600 calc(14vw - .5rem) "Roboto", sans-serif;
+  color: var(--blue);
+  text-align: justify;
+}
+.welcome{
+  margin-top: 1rem;
+}
+
 .game-status {
   display: none;
-  flex-direction: row;
+  flex-direction: column;
   gap: 2rem;
   margin-bottom: 2rem;
   color: white !important;
@@ -63,10 +69,12 @@ h2 {
 
 .game-greetings{
     background-color: var(--blue) !important;
-
+width: 100%;
   }
-  
-.game-greetings p, .round {
+  .game-intro p{
+    color: white;
+  }
+.game-greetings p, .round, .game-intro p {
   font-weight: 300;
   font-size: 1.5rem;
 }
@@ -77,22 +85,22 @@ h2 {
   text-transform: uppercase;
   font-weight: 700;
   list-style: none;
-
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(auto, 1fr);
   gap: .1rem 2rem;
 }
   .letters-answered { grid-area: 1 / 2 / 2 / 3; }
   .round-value { grid-area: 2 / 1 / 3 / 2; }
   .round-headline { grid-area: 1 / 1 / 2 / 2; }
-  .letters-answered-value { grid-area: 2 / 2 / 3 / 3; }
-  .time-left { grid-area: 3 / 1 / 4 / 3; }
-  .time-left-value { grid-area: 4 / 1 / 5 / 3;}
+  .points-value { grid-area: 2 / 2 / 3 / 3; }
+  .time-left { grid-area: auto; }
+  .time-left-value { grid-area: auto;}
   
-  .round-value,  .time-left-value , .letters-answered-value{
+  .round-value,  .time-left-value , .points-value{
     font-size: 3rem; font-weight: 300;
   }
+
 input[type="text"] {
   /* background-color: var(--gray); */
   text-transform: uppercase;
@@ -104,13 +112,19 @@ input[type="text"] {
   padding: 2rem;
   width: 100%;
   margin: 1em 0;
-  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
-  border: 1px solid #eee;
+  box-shadow: 0 15px 4px var(--lgray);
+  box-shadow: inset 0 -2px 5px var(--lgray);
+  border: 1px solid var(--gray);
+  background-color: var(--swhite);
   transition: box-shadow 0.3s, border-color 0.5s;
 }
 input[type="text"]:hover {
   border: 1px solid var(--gray);
+  box-shadow: inset 0 0 0;
+
 }
+
+
 
 button {
   width: fit-content;
@@ -122,32 +136,49 @@ button {
   text-transform: uppercase;
   text-align: center;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  color: #eee;
-  background-color: whitesmoke;
+  color: var(--blue);
+  background-color: var(--swhite);
   border-radius: 2.5em;
   border: 0;
   box-sizing: border-box;
   cursor: pointer;
   outline: 0;
 }
-button:hover {
+button:hover, button:focus {
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
   text-shadow: none;
-  background-color: var(--blue);
+  color: white;
+  background-color: var(--lgray);
   transition: box-shadow 0.3s, text-shadow 0.3s;
 }
 button:active {
   box-shadow: none;
-  background-color: var(--green);
+  color: var(--gray);
+  background-color: var(--swhite);
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   transition:  box-shadow 0.3s;
 }
 .button-start-game {
   align-self: flex-end;
+  margin-right: 0rem;
 }
 
 input:focus {
-border-color: var(--blue);
+  border-color: var(--blue);
+}
+
+.clear-in{
+  position: relative;
+}
+ .clear-input{
+  border: 1px solid var(--blush);
+  color: var(--swhite);
+  font-size: 1.5rem;
+  position: absolute;
+  right: 0px;
+  padding: 1.1rem 1rem;
+   margin: 1em 0;
+  background-color: var(--blush);
 }
 
 .container {
@@ -169,8 +200,8 @@ border-color: var(--blue);
   gap: 2rem;
 }
 
-.left-column,
-.right-column {
+.content .left-column,
+.content .right-column {
   flex: 1 1 auto;
   width: calc(100% / 2);
 }
@@ -216,22 +247,21 @@ padding-bottom: 100%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   width: 3.2rem;
   height: 3.2rem;
   margin: 2rem;
   font-size: 2rem;
   line-height: 3rem;
-  border: 1px solid whitesmoke;
+  border: 1px solid var(--swhite);
   border-radius: 100%;
   font-weight: 700;
-  color: white;
+  color: var(--swhite);
   text-align: center;
   background: var(--blue);
   aspect-ratio: 1;
   display: inline-block;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 4px 0 rgba(0, 0, 0, 0.2);
 }
 .game-intro,
 .game-greetings,
@@ -240,30 +270,69 @@ padding-bottom: 100%;
   background-color: var(--blue);
   border-radius: 1rem;
   padding: 2rem;
-  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
   border: 0;
 }
 
 
 
-.right-column .question-headline{
-  font-size: 0.8rem;
+ .question-headline{
+  font: 600 0.8rem "Roboto", sans-serif;
 text-transform: uppercase;
-color: white;
+color: var(--swhite);
 }
 .question{
   font:  600 2rem "Roboto", sans-serif;
-  color: white;
+  text-transform: none ;
+  color: var(--swhite);
 }
 .game-end {
   margin: 0;
   display: none;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
+
 .send-answer{
+  color: var(--swhite);
   background-color: var(--green);
+}
+ul.ranking{
+font-size: 2rem;
+font-weight: 600;
+text-transform: uppercase;
+padding: 0 0 1rem 0;
+width: 50%;
+}
+.ranking li{
+  text-transform: none;
+  font-size: 1rem;
+  list-style: none;
+  padding: .3rem 1rem;
+  margin: 0.2rem 0;
+border-radius: .5rem;
+background-color: var(--swhite);
+}
+
+.ranking-0{
+  background-color: gold !important;
+}
+.ranking-1{
+  background-color: #c0c0c0 !important;
+}
+.ranking-2{
+  background-color: #CC6633 !important;
+}
+
+.game-result{
+  color: white;
+  display: none;
+  width: 50%;
+}
+.game-result
+.button-restart-game {
+  align-self: self-end;
 }
 
 footer{
