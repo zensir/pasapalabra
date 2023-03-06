@@ -339,6 +339,7 @@ let pasapalabraQuestions = [];
 let pasapalabraQuestionNumber;
 let points = 0;
 let timerInterval;
+let showAnswers = false;
 let ranking = [
   { name: "Ulises", points: 4 },
   { name: "Enki", points: 16 },
@@ -369,7 +370,9 @@ const askLetter = (questions) => {
   }
 
   showQuestion(question);
-  inputAnswer.value = `${answer}`;
+  if (!showAnswers) {
+    inputAnswer.value = `${answer}`;
+  }
 };
 
 const checkErrorInput = (userAnswer) => {
@@ -514,7 +517,6 @@ const checkPasapalabraStatus = (questions) => {
 };
 
 const saveGame = (name, points) => {
-  debugger;
   ranking.push({ name, points });
 };
 
@@ -543,6 +545,7 @@ const inputAnswer = document.querySelector(".input-answer");
 
 const addEventListeners = () => {
   const inputUserName = document.querySelector(".input-user-name");
+  const inputShowAnswers = document.querySelector(".input-show-answers");
   const startGameButton = document.querySelector(".button-start-game");
   const sendAnswerButton = document.querySelector(".send-answer"); 
   const clearButton = document.querySelector(".clear-input");
@@ -552,6 +555,10 @@ const addEventListeners = () => {
   const ulLetterList = document.querySelector("ul.letters-list"); 
   const ulRankingList = document.querySelector("ul.ranking"); 
 
+  inputUserName.addEventListener('focus', (event) => {
+    event.preventDefault(); 
+    inputUserName.value = '';
+  });
 
   clearButton.addEventListener("click", (event) => {
     event.preventDefault(); 
@@ -562,6 +569,8 @@ const addEventListeners = () => {
     event.preventDefault();
     start = Date.now();
     userName = inputUserName.value;
+    showAnswers = inputShowAnswers.value;
+
     let errorInput = checkErrorInput(userName);
 
     if (errorInput) {
@@ -634,17 +643,20 @@ const addEventListeners = () => {
     document.querySelector(".input-user-name").focus();
   });
 
-  inputUserName.value = `Anibal`;
+  inputUserName.value = ``;
 };
 
 addEventListeners();
 
-const showDiv = (elementClass, show) => {
+const showDiv = (elementClass, block, flex) => {
   const element = document.querySelector(`.${elementClass}`);
-  if (show) {
+  if (block) {
     element.style.display = "block";
+  } else if(flex){
+    element.style.display = "flex";
   } else {
     element.style.display = "none";
+
   }
 };
 
