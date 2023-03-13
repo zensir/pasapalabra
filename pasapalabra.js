@@ -370,7 +370,7 @@ const askLetter = (questions) => {
   }
 
   showQuestion(question);
-  if (!showAnswers) {
+  if (showAnswers) {
     inputAnswer.value = `${answer}`;
   }
 };
